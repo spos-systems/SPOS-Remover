@@ -62,29 +62,29 @@
   ],
   "screenshots": [
     {
-      "src": "docs/screenshots/desktop-ar.png",
-      "sizes": "1440x1066",
+      "src": "docs/screenshots/desktop-ar.png?v=152",
+      "sizes": "1060x550",
       "type": "image/png",
       "form_factor": "wide",
       "label": "SPOS Remover — الواجهة الرئيسية"
     },
     {
-      "src": "docs/screenshots/result-ar.png",
-      "sizes": "1440x1066",
+      "src": "docs/screenshots/result-ar.png?v=152",
+      "sizes": "1014x713",
       "type": "image/png",
       "form_factor": "wide",
       "label": "SPOS Remover — نتيجة إزالة الخلفية بنفس الأبعاد الأصلية"
     },
     {
-      "src": "docs/screenshots/exif-ar.png",
-      "sizes": "1440x1066",
+      "src": "docs/screenshots/exif-ar.png?v=152",
+      "sizes": "390x844",
       "type": "image/png",
-      "form_factor": "wide",
+      "form_factor": "narrow",
       "label": "SPOS Remover — فحص بيانات EXIF"
     },
     {
-      "src": "docs/screenshots/mobile-ar.png",
-      "sizes": "390x5597",
+      "src": "docs/screenshots/mobile-ar.png?v=152",
+      "sizes": "390x844",
       "type": "image/png",
       "form_factor": "narrow",
       "label": "SPOS Remover — على الهاتف"

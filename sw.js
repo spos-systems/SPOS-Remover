@@ -20,14 +20,14 @@
  *     downloaded chunks stay in the cache.
  *   • All caches from older versions are purged on activate.
  */
-const VERSION = 'sposremover-v1.5.1';
+const VERSION = 'sposremover-v1.5.2';
 
 const SHELL = [
   './',
   './index.html',
   './privacy.html',
   './404.html',
-  './manifest.webmanifest',
+  './manifest.webmanifest?v=152',
   './assets/fonts/cairo-arabic-400.woff2',
   './assets/fonts/cairo-latin-400.woff2',
   './assets/fonts/cairo-arabic-600.woff2',
@@ -116,6 +116,11 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (url.origin !== location.origin) return; // never touch other CDNs
+
+  // Documentation screenshots (the PWA install-dialog previews) are ALWAYS
+  // served straight from the network — never cached by this worker — so the
+  // install dialog can never show a stale image again, no matter what.
+  if (/\/docs\//.test(url.pathname)) return;
 
   if (req.mode === 'navigate') {
     event.respondWith(
