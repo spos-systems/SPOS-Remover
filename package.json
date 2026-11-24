@@ -1,0 +1,13 @@
+{
+  "name": "spos-remover",
+  "version": "1.5.1",
+  "private": true,
+  "type": "module",
+  "description": "SPOS Remover — open-source AI background remover & EXIF privacy cleaner that runs 100% in your browser (static site, zero bundled dependencies). https://spos-systems.github.io/SPOS-Remover/",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spos-systems/SPOS-Remover"
+  },
+  "homepage": "https://spos-systems.github.io/SPOS-Remover/"
+}

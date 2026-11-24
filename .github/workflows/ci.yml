@@ -1,0 +1,102 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    name: Validate site assets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check JavaScript syntax
+        run: |
+          for f in assets/js/*.js sw.js; do
+            node --check "$f" || { echo "Syntax error in $f"; exit 1; }
+          done
+          echo "All JS files OK"
+
+      - name: Validate JSON files
+        run: |
+          python3 -m json.tool manifest.webmanifest > /dev/null || { echo "Invalid manifest.webmanifest"; exit 1; }
+          python3 -m json.tool package.json > /dev/null || { echo "Invalid package.json"; exit 1; }
+          echo "JSON OK"
+
+      - name: Validate JSON-LD blocks in HTML
+        run: |
+          python3 - <<'EOF'
+          import json, re, sys
+          html = open('index.html', encoding='utf-8').read()
+          blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S)
+          assert blocks, "No JSON-LD found"
+          for i, b in enumerate(blocks):
+              json.loads(b)
+              print(f"JSON-LD block {i+1}: OK")
+          EOF
+
+      - name: Verify local asset references exist
+        run: |
+          python3 - <<'EOF'
+          import re, os, sys
+          missing = []
+          for dirpath, _, files in os.walk('.'):
+              if '.git' in dirpath or 'node_modules' in dirpath:
+                  continue
+              for fn in files:
+                  if not fn.endswith(('.html', '.css', '.js', '.webmanifest')):
+                      continue
+                  path = os.path.join(dirpath, fn)
+                  text = open(path, encoding='utf-8').read()
+                  for m in re.finditer(r'''(?:src|href)=["'](?!https?:|mailto:|tel:|#|data:)([^"'#]+)''', text):
+                      ref = m.group(1).split('?')[0]
+                      if not ref or ref in ('./', '.'):
+                          continue
+                      target = os.path.normpath(os.path.join(dirpath, ref))
+                      if not os.path.exists(target):
+                          missing.append(f"{path}: {ref}")
+          if missing:
+              print("Missing local assets:")
+              print("\n".join(missing))
+              sys.exit(1)
+          print("All local asset references OK")
+          EOF
+
+      - name: Check i18n dictionaries are in sync
+        run: |
+          node --input-type=module - <<'EOF'
+          import { DICT } from './assets/js/i18n.js';
+          const ar = Object.keys(DICT.ar), en = Object.keys(DICT.en);
+          const missEn = ar.filter(k => typeof DICT.en[k] !== 'string');
+          const missAr = en.filter(k => typeof DICT.ar[k] !== 'string');
+          if (missEn.length || missAr.length) {
+            console.error('i18n out of sync:', { missEn, missAr });
+            process.exit(1);
+          }
+          console.log(`i18n OK (${ar.length} keys, ar/en in sync)`);
+          EOF
+
+      - name: Check repo files are present
+        run: |
+          for f in index.html privacy.html 404.html LICENSE README.md CHANGELOG.md CONTRIBUTING.md SECURITY.md CODE_OF_CONDUCT.md manifest.webmanifest robots.txt sitemap.xml sw.js llms.txt llms-full.txt .nojekyll; do
+            test -f "$f" || { echo "Missing $f"; exit 1; }
+          done
+          echo "Core files OK"
+
+      - name: Check self-hosted AI model chunks
+        run: |
+          test -f assets/models/resources.json || { echo "Missing assets/models/resources.json"; exit 1; }
+          n=$(ls assets/models | wc -l)
+          s=$(du -sm assets/models | cut -f1)
+          if [ "$n" -lt 15 ] || [ "$s" -lt 50 ]; then
+            echo "Self-hosted model chunks look incomplete: $n files, ${s}MB"
+            exit 1
+          fi
+          echo "Self-hosted model OK ($n files, ${s}MB)"

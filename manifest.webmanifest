@@ -1,0 +1,93 @@
+{
+  "id": "sposremover-app",
+  "name": "SPOS Remover — إزالة الخلفية وحذف بيانات الصور",
+  "short_name": "SPOS Remover",
+  "description": "منظومة إزالة متكاملة تعمل داخل متصفحك: إزالة خلفية الصور بالذكاء الاصطناعي بنفس أبعاد صورتك الأصلية، وفحص وحذف بيانات EXIF الحساسة — مجانية ومفتوحة المصدر، بدون رفع أي صورة لأي سيرفر.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "dir": "rtl",
+  "lang": "ar",
+  "background_color": "#F5F7F5",
+  "theme_color": "#F5F7F5",
+  "categories": [
+    "utilities",
+    "graphics",
+    "productivity"
+  ],
+  "shortcuts": [
+    {
+      "name": "إزالة الخلفية بالذكاء الاصطناعي",
+      "short_name": "إزالة الخلفية",
+      "description": "افتح الأداة على تبويب إزالة الخلفية مباشرة",
+      "url": "./?tool=bg",
+      "icons": [
+        {
+          "src": "assets/img/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "فحص وحذف بيانات الصور",
+      "short_name": "فحص EXIF",
+      "description": "افتح الأداة على تبويب فحص البيانات الوصفية مباشرة",
+      "url": "./?tool=exif",
+      "icons": [
+        {
+          "src": "assets/img/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "icons": [
+    {
+      "src": "assets/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "docs/screenshots/desktop-ar.png",
+      "sizes": "1440x1066",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "SPOS Remover — الواجهة الرئيسية"
+    },
+    {
+      "src": "docs/screenshots/result-ar.png",
+      "sizes": "1440x1066",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "SPOS Remover — نتيجة إزالة الخلفية بنفس الأبعاد الأصلية"
+    },
+    {
+      "src": "docs/screenshots/exif-ar.png",
+      "sizes": "1440x1066",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "SPOS Remover — فحص بيانات EXIF"
+    },
+    {
+      "src": "docs/screenshots/mobile-ar.png",
+      "sizes": "390x5597",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "SPOS Remover — على الهاتف"
+    }
+  ]
+}

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>SPOS Remover | إزالة خلفية الصور بالذكاء الاصطناعي وحذف بيانات EXIF — مجاناً</title>
+  <meta name="description" content="أداة مجانية مفتوحة المصدر لإزالة خلفية الصور بالذكاء الاصطناعي وفحص وحذف بيانات EXIF الحساسة (الموقع الجغرافي والكاميرا) — تعمل بالكامل داخل متصفحك دون رفع أي صورة، وتخرج النتيجة بنفس أبعاد صورتك الأصلية، وتثبت كتطبيق يعمل دون إنترنت. من صولة للأنظمة SPOS ليبيا.">
+  <meta name="keywords" content="إزالة خلفية الصور, ازالة خلفية الصورة, حذف بيانات الصور, فحص EXIF, حذف EXIF, خصوصية الصور, إزالة الخلفية ليبيا, تغيير خلفية الصورة, صور بدون خلفية, background remover, remove background online free, exif remover, metadata cleaner, SPOS Remover, صولة للأنظمة, ليبيا">
+  <meta name="author" content="صولة للأنظمة SPOS — https://spos.ly">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="theme-color" content="#FFFFFF">
+  <meta name="color-scheme" content="light">
+  <meta name="application-name" content="SPOS Remover">
+  <meta name="geo.region" content="LY">
+  <meta name="geo.placename" content="Libya">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SPOS Remover">
+  <meta property="og:title" content="SPOS Remover — إزالة خلفية الصور بالذكاء الاصطناعي + حذف بيانات EXIF">
+  <meta property="og:description" content="منظومة إزالة متكاملة تعمل داخل متصفحك 100%: إزالة الخلفية بالذكاء الاصطناعي وفحص وحذف بيانات EXIF — النتيجة بنفس أبعاد صورتك الأصلية. مجانية ومفتوحة المصدر من صولة للأنظمة SPOS.">
+  <meta property="og:url" content="https://spos-systems.github.io/SPOS-Remover/">
+  <meta property="og:image" content="https://spos-systems.github.io/SPOS-Remover/assets/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="SPOS Remover — إزالة خلفية الصور داخل المتصفح">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SPOS Remover — إزالة خلفية الصور + حذف بيانات EXIF">
+  <meta name="twitter:description" content="أزل خلفية صورك بالذكاء الاصطناعي داخل متصفحك، واحذف بياناتها الحساسة — مجاناً ومفتوح المصدر.">
+  <meta name="twitter:image" content="https://spos-systems.github.io/SPOS-Remover/assets/img/og.png">
+
+  <link rel="canonical" href="https://spos-systems.github.io/SPOS-Remover/">
+  <link rel="alternate" hreflang="ar" href="https://spos-systems.github.io/SPOS-Remover/">
+  <link rel="alternate" hreflang="en" href="https://spos-systems.github.io/SPOS-Remover/?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://spos-systems.github.io/SPOS-Remover/">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/img/favicon.ico" sizes="any">
+  <link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/img/icon-180.png">
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- anti-flicker language bootstrap (must run before paint) -->
+  <script>
+    (function () {
+      try {
+        var q = new URLSearchParams(location.search).get('lang');
+        var saved = localStorage.getItem('spos-remover-lang');
+        var lang = q || saved || ((navigator.language || '').toLowerCase().indexOf('ar') === 0 ? 'ar' : 'en');
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'en' ? 'ltr' : 'rtl';
+      } catch (e) { /* keep ar/rtl default */ }
+    })();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://spos-systems.github.io/SPOS-Remover/#org",
+        "name": "صولة للأنظمة SPOS",
+        "alternateName": "SPOS Systems",
+        "slogan": "حلول برمجية متكاملة",
+        "url": "https://spos.ly",
+        "logo": "https://spos-systems.github.io/SPOS-Remover/assets/img/company-logo.png",
+        "email": "mailto:hello@spos.ly",
+        "telephone": "+218935535606",
+        "areaServed": { "@type": "Place", "name": "ليبيا / Libya" },
+        "sameAs": ["https://github.com/spos-systems"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://spos-systems.github.io/SPOS-Remover/#site",
+        "url": "https://spos-systems.github.io/SPOS-Remover/",
+        "name": "SPOS Remover",
+        "inLanguage": ["ar", "en"],
+        "publisher": { "@id": "https://spos-systems.github.io/SPOS-Remover/#org" }
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://spos-systems.github.io/SPOS-Remover/#app",
+        "name": "SPOS Remover",
+        "url": "https://spos-systems.github.io/SPOS-Remover/",
+        "description": "أداة مجانية مفتوحة المصدر تعمل بالكامل داخل المتصفح: إزالة خلفية الصور بنماذج ذكاء اصطناعي محلية (الناتج بنفس أبعاد الصورة الأصلية)، وفحص وحذف بيانات EXIF الحساسة دون رفع أي ملف.",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Any (browser)",
+        "browserRequirements": "يتطلب JavaScript وWebAssembly",
+        "softwareVersion": "1.5.0",
+        "inLanguage": ["ar", "en"],
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "LYD" },
+        "author": { "@id": "https://spos-systems.github.io/SPOS-Remover/#org" },
+        "publisher": { "@id": "https://spos-systems.github.io/SPOS-Remover/#org" },
+        "featureList": [
+          "AI background removal (ISNet models via WebAssembly, fully client-side)",
+          "Two self-hosted models: fast (isnet_quint8, ~44MB) and recommended balanced (isnet_fp16, ~88MB) — same-origin and offline-capable",
+          "Mandatory strength selection before processing starts (no silent defaults), with honest sizes shown up front",
+          "Edge refinement pass: guided-filter alpha refinement, debris removal and hole filling (runs after the model)",
+          "Byte-accurate, streamed download progress — real MB counters, never restarting percentages",
+          "Output always keeps the ORIGINAL image dimensions — no resizing, no recompression of pixels",
+          "EXIF / GPS / camera metadata inspection",
+          "One-click clean copy download without metadata",
+          "Before/after comparison slider",
+          "Transparent PNG and white-background JPG export",
+          "Drag & drop, file picker and clipboard paste input",
+          "Arabic RTL and English interface",
+          "Installable PWA with offline support",
+          "No uploads, no tracking, no accounts"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "هل تتغير أبعاد صورتي أو جودتها بعد إزالة الخلفية؟", "acceptedAnswer": { "@type": "Answer", "text": "لا إطلاقاً. الناتج يخرج بنفس أبعاد صورتك الأصلية بالكامل (مثلاً 4000×3000 تدخل، 4000×3000 تخرج) — الأداة تغيّر الخلفية فقط ولا تصغّر صورك أبداً. خيار «سرعة المعالجة» في الواجهة يخص نموذج الذكاء الاصطناعي وحده ولا علاقة له بأبعاد ناتجك." } },
+          { "@type": "Question", "name": "هل الأداة مجانية حقاً؟", "acceptedAnswer": { "@type": "Answer", "text": "نعم، مجانية بالكامل ومفتوحة المصدر تحت ترخيص MIT: بلا حسابات، بلا حدود يومية، بلا علامات مائية. الكود متاح للجميع على GitHub ويمكن لأي شخص مراجعته أو استضافته بنفسه." } },
+          { "@type": "Question", "name": "هل تُرفع صوري إلى أي سيرفر؟", "acceptedAnswer": { "@type": "Answer", "text": "لا إطلاقاً. كل المعالجة — تشغيل نموذج الذكاء الاصطناعي وحذف البيانات — تتم داخل متصفحك عبر WebAssembly، ولا يغادر أي بكسل جهازك." } },
+          { "@type": "Question", "name": "ما هو تنزيل النموذج الأولي ومتى يحدث؟", "acceptedAnswer": { "@type": "Answer", "text": "يبدأ تنزيل النموذج عند اختيارك قوة الإزالة (قبل المعالجة): السريع نحو 44 ميجابايت والمتوازن نحو 88 ميجابايت — كلاهما مستضاف على نفس موقع الأداة — وأقصى الدقة نحو 176 ميجابايت من مزود خارجي. يُنزَّل مرة واحدة ويُخزَّن في متصفحك فلا يُنزَّل مرة أخرى، وشريط التنزيل يعرض بايتات حقيقية من إجمالي معروف. هذا لا يتعلق بأبعاد صورك إطلاقاً." } },
+          { "@type": "Question", "name": "ما هي بيانات EXIF ولماذا تهدد خصوصيتي؟", "acceptedAnswer": { "@type": "Answer", "text": "EXIF بيانات وصفية تُدمج داخل ملف الصورة عند التصوير: موقع GPS الدقيق، طراز الكاميرا والعدسة، التاريخ والوقت، وإعدادات التصوير. عند مشاركة الصورة قد تكشف مكان منزلك أو عملك — أداة الفحص تظهر كل ما فيها وتمنحك نسخة نظيفة." } },
+          { "@type": "Question", "name": "هل يعمل على الهاتف وبدون إنترنت؟", "acceptedAnswer": { "@type": "Answer", "text": "نعم، الأداة تطبيق PWA يعمل على أندرويد وiPhone وسطح المكتب، ويمكن تثبيته كتطبيق واستخدامه دون اتصال بعد أول زيارة — النموذج السريع مستضاف ضمن الموقع نفسه ويعمل حتى مع ضعف الاتصال." } },
+          { "@type": "Question", "name": "من طوّر هذه الأداة؟", "acceptedAnswer": { "@type": "Answer", "text": "طورتها صولة للأنظمة SPOS — شركة ليبية متخصصة في الحلول البرمجية، وأطلقتها مجانية ومفتوحة المصدر لخدمة الجميع." } }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#tool">تخطَّ إلى الأداة</a>
+
+  <!-- ============ header ============ -->
+  <header class="topbar">
+    <div class="wrap bar-in">
+      <a class="brand" href="./" aria-label="SPOS Remover — الرئيسية">
+        <img src="assets/img/favicon.svg" alt="" width="34" height="34">
+        <b class="b-name">SPOS <span>Remover</span></b>
+      </a>
+      <nav class="bar-actions" aria-label="أدوات الصفحة">
+        <button class="hbtn" id="installBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span data-i18n="install">تثبيت التطبيق</span>
+        </button>
+        <button class="hbtn" id="langToggle" type="button" aria-label="English">EN</button>
+        <a class="hbtn icon-only" href="https://github.com/spos-systems/SPOS-Remover" target="_blank" rel="noopener" data-i18n-aria="github">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.69 1.25 3.35.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.77 1.05.77 2.12 0 1.53-.01 2.76-.01 3.14 0 .3.2.67.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ hero ============ -->
+    <section class="hero">
+      <div class="wrap">
+        <span class="hero-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <span data-i18n="heroBadge">مشروع مفتوح المصدر · مجاني للأبد</span>
+        </span>
+        <h1><span data-i18n="heroTitle1">أزل الخلفية من صورك</span> <em data-i18n="heroTitle2">داخل متصفحك</em></h1>
+        <p class="lead" data-i18n="heroLead">ذكاء اصطناعي يعمل محلياً على جهازك، والناتج يخرج بنفس أبعاد صورتك الأصلية — لا رفع، لا تصغير، لا تتبع. وافحص بيانات صورك الحساسة واحذفها قبل مشاركتها.</p>
+        <div class="chips">
+          <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="chipLocal">المعالجة داخل متصفحك 100%</span></span>
+          <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="chipDims">أبعاد صورتك محفوظة بالكامل</span></span>
+          <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="chipFree">مفتوح المصدر MIT · بلا حدود</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ the tool ============ -->
+    <section class="tool wrap" id="tool" aria-label="SPOS Remover">
+      <div class="tool-card">
+        <div class="seg" role="tablist" aria-label="الأدوات">
+          <button type="button" data-tool="bg" role="tab" aria-selected="true" class="active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></svg>
+            <span data-i18n="tabBg">إزالة الخلفية</span>
+          </button>
+          <button type="button" data-tool="exif" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <span data-i18n="tabExif">فحص بيانات الصور</span>
+          </button>
+        </div>
+
+        <!-- ===== panel: background removal ===== -->
+        <div class="panel active" id="panel-bg" role="tabpanel">
+          <!-- strength MUST be chosen before anything starts (v1.5.0) -->
+          <div class="speed">
+            <div class="speed-head">
+              <span class="speed-title" data-i18n="tierTitle">قوة الإزالة — اختر قبل البدء</span>
+              <span class="speed-note" data-i18n="tierNote">اختيار إلزامي: يحدد نموذج الذكاء الاصطناعي ودقة الإزالة. ناتجك يخرج دائماً بأبعاد صورتك الأصلية نفسها مهما اخترت.</span>
+            </div>
+            <div class="speed-opts" role="radiogroup" aria-label="قوة الإزالة">
+              <label><input type="radio" name="quality" value="fast"><b data-i18n="tierFast">سريع</b><span data-i18n="tierFastSub">نحو 44 م.ب · مستضاف ضمن الموقع</span></label>
+              <label class="recommended"><input type="radio" name="quality" value="balanced"><b><i data-i18n="tierBalanced">متوازن</i><em data-i18n="tierRecBadge">موصى به</em></b><span data-i18n="tierBalancedSub">نحو 88 م.ب · مستضاف · دقة أعلى بكثير</span></label>
+              <label><input type="radio" name="quality" value="hd"><b data-i18n="tierHd">أقصى دقة</b><span data-i18n="tierHdSub">نحو 176 م.ب · من مزود خارجي · أبطأ</span></label>
+            </div>
+            <div class="prewarm-row" id="prewarmRow" style="display:none">
+              <div class="pw-bar"><div id="pwBar"></div></div>
+              <span id="pwPct" class="pw-pct">0%</span>
+              <span id="pwText" class="pw-text"></span>
+            </div>
+          </div>
+
+          <div class="dropzone" id="dzBg" data-tool="bg" tabindex="0" role="button" aria-label="رفع صورة لإزالة الخلفية">
+            <div class="dz-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+            <div class="dz-title" data-i18n="dzTitle">اسحب صورتك إلى هنا</div>
+            <div class="dz-hint" data-i18n="dzHint">أو اضغط للاختيار من جهازك — ويمكنك اللصق أيضاً بضغطة</div>
+            <div class="dz-kbd"><kbd dir="ltr">Ctrl + V</kbd></div>
+            <div class="dz-formats"><span class="list" data-i18n="dzFormatsList">PNG · JPG · WEBP · GIF · BMP</span><span data-i18n="dzFormatsMax">حتى 30 ميجابايت</span></div>
+          </div>
+          <input type="file" id="fileBg" accept=".png,.jpg,.jpeg,.webp,.gif,.bmp,image/*" hidden>
+
+          <div class="stage-card" id="bgStage" style="display:none">
+            <div class="stage-title" id="bgStageTitle"></div>
+            <div class="stage-sub" id="bgStageSub"></div>
+            <div class="bar"><div id="bgBar"></div></div>
+            <div class="stage-foot"><span id="bgPct">0%</span><span id="bgMb"></span></div>
+          </div>
+
+          <div class="result-card" id="bgResult" style="display:none">
+            <div class="dims-note">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="dimsNote">أبعاد صورتك الأصلية محفوظة بالكامل — تغيّرت الخلفية فقط، لا شيء آخر</span>
+            </div>
+            <div class="compare" id="cmp" style="--pos:50" tabindex="0" role="slider" aria-label="مقارنة قبل وبعد" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <img id="cmpBeforeImg" src="" alt="">
+              <div class="after-wrap"><img id="cmpAfterImg" src="" alt=""></div>
+              <div class="cmp-line"></div>
+              <div class="cmp-knob" id="cmpKnob"></div>
+              <span class="cmp-tag before" data-i18n="cmpBefore">الأصل</span>
+              <span class="cmp-tag after" data-i18n="cmpAfter">بدون خلفية</span>
+            </div>
+            <div class="result-meta">
+              <span class="chip"><span data-i18n="metaDimensions">الأبعاد</span><b id="bgMetaDim">—</b></span>
+              <span class="chip"><span data-i18n="metaOriginal">الحجم الأصلي</span><b id="bgMetaIn">—</b></span>
+              <span class="chip"><span data-i18n="metaResult">حجم الناتج</span><b id="bgMetaOut">—</b></span>
+            </div>
+            <div class="actions">
+              <button class="btn btn-primary" id="dlPng" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span data-i18n="dlPng">تنزيل PNG شفاف</span>
+              </button>
+              <button class="btn btn-ghost" id="dlJpg" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                <span data-i18n="dlJpg">JPG بخلفية بيضاء</span>
+              </button>
+              <button class="btn btn-ghost" id="bgAgain" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                <span data-i18n="newImage">صورة جديدة</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="error-card" id="bgError" style="display:none">
+            <div class="e-title" data-i18n="errTitle">تعذّر إكمال العملية</div>
+            <p id="bgErrorText"></p>
+            <details class="err-details">
+              <summary data-i18n="errDetails">التفاصيل التقنية</summary>
+              <pre class="err-detail" id="bgErrorDetail" dir="ltr"></pre>
+            </details>
+            <div class="err-actions">
+              <button class="btn btn-primary" id="bgRetry" type="button" data-i18n="retry">إعادة المحاولة</button>
+              <a class="btn btn-danger-ghost" id="waSupport" href="https://wa.me/218935535606" target="_blank" rel="noopener" data-i18n="errSupport">إبلاغ الدعم عبر واتساب</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== panel: exif ===== -->
+        <div class="panel" id="panel-exif" role="tabpanel">
+          <div class="dropzone compact" id="dzExif" data-tool="exif" tabindex="0" role="button" aria-label="رفع صورة لفحص بياناتها">
+            <div class="dz-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+            <div class="dz-title" data-i18n="exifDzTitle">اختر صورة لفحص بياناتها</div>
+            <div class="dz-hint"><span data-i18n="exifDzHint">سنعرض لك كل ما تخفيه الصورة: الموقع، الكاميرا، التاريخ والمزيد</span></div>
+          </div>
+          <input type="file" id="fileExif" accept=".png,.jpg,.jpeg,.webp,.gif,.bmp,image/*" hidden>
+
+          <div class="exif-intro" id="exifIntro" style="display:none">
+            <div class="file-head">
+              <img id="exifThumb" src="" alt="">
+              <div>
+                <div class="f-name" id="exifFName"></div>
+                <div class="f-sub" id="exifFSub"></div>
+              </div>
+            </div>
+
+            <div class="gps-banner" id="gpsBanner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <div>
+                <b data-i18n="gpsBannerTitle">تحذير: هذه الصورة تكشف موقعك الجغرافي</b>
+                <span data-i18n="gpsBannerBody">تحتوي الصورة على إحداثيات GPS دقيقة لمكان التصوير، ويمكن لأي شخص يستلمها تحديد المكان على الخريطة. نزّل النسخة النظيفة قبل مشاركتها.</span>
+                <p style="margin:8px 0 0"><a class="osm" id="osmLink" href="#" target="_blank" rel="noopener" data-i18n="gpsOpenMap">عرض الموقع على الخريطة</a></p>
+              </div>
+            </div>
+
+            <div class="stat-row">
+              <div class="stat"><b id="vItems">0</b><span data-i18n="statItems">عنصر بيانات</span></div>
+              <div class="stat" id="sensStat"><b id="vSens">0</b><span data-i18n="statSensitive">عنصر حساس</span></div>
+              <div class="stat"><b id="vState" style="font-size:1rem">—</b><span data-i18n="statClean">الصورة</span></div>
+            </div>
+
+            <p id="noExifNote" style="display:none" class="clean-note" data-i18n="noExif">لا تحتوي هذه الصورة على بيانات وصفية EXIF — إنها نظيفة أصلاً.</p>
+
+            <div class="exif-group">
+              <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-i18n="gGps">الموقع الجغرافي GPS</span></h3>
+              <div class="exif-rows" id="grp-gps"></div>
+            </div>
+            <div class="exif-group">
+              <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span data-i18n="gCamera">الكاميرا وإعدادات التصوير</span></h3>
+              <div class="exif-rows" id="grp-camera"></div>
+            </div>
+            <div class="exif-group">
+              <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span data-i18n="gMeta">الهوية والبرمجيات والتواريخ</span></h3>
+              <div class="exif-rows" id="grp-meta"></div>
+            </div>
+            <div class="exif-group">
+              <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span data-i18n="gFile">معلومات الملف</span></h3>
+              <div class="exif-rows" id="grp-file"></div>
+            </div>
+
+            <div class="clean-zone">
+              <h3 data-i18n="cleanTitle">نزّل نسخة نظيفة تماماً من صورتك</h3>
+              <p class="note" data-i18n="cleanSub">تُعاد كتابة الصورة محلياً في متصفحك فتُحذف كل البيانات الوصفية — البكسلات وأبعاد الصورة تبقى كما هي</p>
+              <div class="actions">
+                <button class="btn btn-primary" id="cleanPng" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><polyline points="7 10 12 15 17 10"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
+                  <span data-i18n="cleanPng">نسخة نظيفة PNG</span>
+                </button>
+                <button class="btn btn-ghost" id="cleanJpg" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><polyline points="7 10 12 15 17 10"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
+                  <span data-i18n="cleanJpg">نسخة نظيفة JPG</span>
+                </button>
+              </div>
+              <p class="clean-note" id="cleanNote" style="display:none"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="under-tool">
+        <span data-i18n="underTool">لا يُرفع أي ملف إلى أي سيرفر — المعالجة تتم على جهازك بالكامل</span>
+      </p>
+    </section>
+
+    <!-- ============ features ============ -->
+    <section class="section wrap" id="features">
+      <h2 data-i18n="fTitle">أداة واحدة، بلا مقايضات</h2>
+      <p class="sect-sub" data-i18n="fSub">قوة الذكاء الاصطناعي وخصوصية المعالجة المحلية وأبعادك الأصلية — كلها معاً، في صفحة واحدة تعمل حتى مع ضعف الاتصال.</p>
+      <div class="features">
+        <div class="f-card">
+          <div class="f-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/><circle cx="12" cy="12" r="4"/></svg></div>
+          <h3 data-i18n="f1t">إزالة خلفية بالذكاء الاصطناعي</h3>
+          <p data-i18n="f1b">نماذج ISNet العصبية تعمل عبر WebAssembly داخل متصفحك بثلاث قوات، ويُطبَّق بعدها تحسين تلقائي للحواف: تصفية موجَّهة تُحكِم حواف الشعر والتفاصيل، وإزالة البقايا العالقة بالخلفية، وملء الثقوب الصغيرة داخل الموضوع.</p>
+        </div>
+        <div class="f-card">
+          <div class="f-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h4v4H3zM17 3h4v4h-4zM3 17h4v4H3zM17 17h4v4h-4z"/></svg></div>
+          <h3 data-i18n="f2t">أبعادك الأصلية محفوظة</h3>
+          <p data-i18n="f2b">الناتج يخرج بنفس أبعاد صورتك الأصلية بالكامل — بلا تصغير ولا اقتصاص. ما تراه في المقارنة هو ما تنزّله بالضبط.</p>
+        </div>
+        <div class="f-card">
+          <div class="f-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h3 data-i18n="f3t">خصوصية مطلقة</h3>
+          <p data-i18n="f3b">لا سيرفر، لا رفع، لا تتبع، لا حسابات. كل المعالجة تتم محلياً — يمكنك قطع الإنترنت بعد فتح الصفحة والتأكد بنفسك.</p>
+        </div>
+        <div class="f-card">
+          <div class="f-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <h3 data-i18n="f4t">كشف بيانات EXIF وحذفها</h3>
+          <p data-i18n="f4b">افحص ما تخفيه صورك: إحداثيات GPS، طراز الكاميرا، التاريخ والوقت، اسم المصور ورقم التسلسل — ثم نزّل نسخة نظيفة بضغطة واحدة.</p>
+        </div>
+        <div class="f-card">
+          <div class="f-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
+          <h3 data-i18n="f5t">يعمل دون إنترنت — فعلياً</h3>
+          <p data-i18n="f5b">تطبيق PWA كامل، والنموذجان السريع والمتوازن (الموصى به) مستضافان ضمن الموقع نفسه فلا يعتمدان على أي مزود خارجي — وينفعان مع ضعف الاتصال ويعملان دون إنترنت بعد أول تنزيل.</p>
+        </div>
+        <div class="f-card">
+          <div class="f-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <h3 data-i18n="f6t">عربي أولاً، مزدوج اللغة</h3>
+          <p data-i18n="f6b">واجهة عربية RTL كاملة بخخط Cairo مع تبديل فوري إلى الإنجليزية — أداة عالمية المستوى بروح ليبية.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ faq ============ -->
+    <section class="section wrap" id="faq">
+      <h2 data-i18n="qTitle">الأسئلة الشائعة</h2>
+      <div class="faq">
+        <details open><summary data-i18n="q1">هل تتغير أبعاد صورتي أو جودتها؟</summary><p class="faq-body" data-i18n="q1a">لا إطلاقاً. الناتج يخرج بنفس أبعاد صورتك الأصلية بالكامل (4000×3000 تدخل، 4000×3000 تخرج) — الأداة تغيّر الخلفية فقط ولا تصغّر صورك أبداً. خيار «سرعة المعالجة» يخص نموذج الذكاء الاصطناعي وحده ولا علاقة له بأبعاد ناتجك.</p></details>
+        <details><summary data-i18n="q2">هل الأداة مجانية حقاً؟</summary><p class="faq-body" data-i18n="q2a">نعم، مجانية بالكامل ومفتوحة المصدر تحت ترخيص MIT: بلا حسابات، بلا حدود يومية، بلا علامات مائية على النتائج. الكود متاح للجميع على GitHub ويمكن لأي شخص مراجعته أو استضافته بنفسه.</p></details>
+        <details><summary data-i18n="q3">هل تُرفع صوري إلى أي سيرفر؟</summary><p class="faq-body" data-i18n="q3a">لا إطلاقاً. كل المعالجة — تشغيل نموذج الذكاء الاصطناعي وحذف البيانات — تتم داخل متصفحك عبر WebAssembly. لا يغادر أي بكسل جهازك.</p></details>
+        <details><summary data-i18n="q4">ما هو التنزيل الأولي للنموذج؟</summary><p class="faq-body" data-i18n="q4a">يبدأ التنزيل عند اختيارك قوة الإزالة (قبل المعالجة): السريع نحو 44 ميجابايت والمتوازن نحو 88 ميجابايت — كلاهما مستضاف على نفس موقع الأداة ولا يعتمدان على أي مزود خارجي — وأقصى الدقة نحو 176 ميجابايت من مزود خارجي. يُنزَّل النموذج مرة واحدة ويُخزَّن في متصفحك، وشريط التنزيل يعرض بايتات حقيقية من إجمالي معروف فلا أرقام مضللة. هذا التنزيل لا يتعلق بأبعاد صورك إطلاقاً — إنه «عقل» الأداة فقط.</p></details>
+        <details><summary data-i18n="q5">ما هي بيانات EXIF ولماذا تهدد خصوصيتي؟</summary><p class="faq-body" data-i18n="q5a">EXIF هي بيانات وصفية تُدمج داخل ملف الصورة عند التصوير: موقع GPS الدقيق، طراز الكاميرا والعدسة، التاريخ والوقت، وإعدادات التصوير. عند مشاركة الصورة قد تكشف مكان منزلك أو عملك — أداة الفحص تظهر لك كل ما فيها وتمنحك نسخة نظيفة.</p></details>
+        <details><summary data-i18n="q6">هل يعمل على الهاتف وبدون إنترنت؟</summary><p class="faq-body" data-i18n="q6a">نعم. الأداة تطبيق PWA يعمل على أندرويد وiPhone وسطح المكتب. بعد أول زيارة يمكنك تثبيته كتطبيق من قائمة المتصفح واستخدامه دون اتصال — النموذج السريع مستضاف ضمن الموقع نفسه، والنموذج يُخزَّن في متصفحك بعد أول استخدام.</p></details>
+        <details><summary data-i18n="q7">من طوّر هذه الأداة؟</summary><p class="faq-body" data-i18n="q7a">طورتها صولة للأنظمة SPOS — شركة ليبية متخصصة في الحلول البرمجية، وأطلقتها مجانية ومفتوحة المصدر لخدمة الجميع.</p></details>
+      </div>
+    </section>
+
+    <!-- ============ about the project ============ -->
+    <section class="section wrap" id="about">
+      <div class="about-card">
+        <div class="about-main">
+          <h2 data-i18n="aTitle">مشروع مفتوح المصدر، بروح مستقلة</h2>
+          <p data-i18n="aBody">SPOS Remover أداة مجانية صُنعت لتكون الأفضل في فئتها: هوية خاصة بها، كود متاح للجميع تحت ترخيص MIT، والنموذج السريع مستضاف ذاتياً ليعمل في كل مكان. استضفها بنفسك أو طوّرها — إنها ملك المجتمع.</p>
+          <div class="about-links">
+            <a class="btn btn-primary" href="https://github.com/spos-systems/SPOS-Remover" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.69 1.25 3.35.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.77 1.05.77 2.12 0 1.53-.01 2.76-.01 3.14 0 .3.2.67.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+              <span data-i18n="aRepo">الكود على GitHub</span>
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/spos-systems/SPOS-Remover/blob/main/LICENSE" target="_blank" rel="noopener" data-i18n="aLicense">ترخيص MIT</a>
+            <a class="btn btn-ghost" href="privacy.html" data-i18n="aPrivacy">سياسة الخصوصية</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ footer ============ -->
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="f-tool">
+          <div class="f-brand">
+            <img src="assets/img/favicon.svg" alt="" width="38" height="38">
+            <b>SPOS Remover</b>
+          </div>
+          <p class="f-about" data-i18n="ftAbout">أداة مجانية مفتوحة المصدر لإزالة خلفية الصور بالذكاء الاصطناعي وفحص وحذف بيانات EXIF — تعمل بالكامل داخل متصفحك وتحترم خصوصيتك.</p>
+        </div>
+        <div class="f-col">
+          <h4 data-i18n="ftTool">الأداة</h4>
+          <ul>
+            <li><a href="./?tool=bg" data-i18n="ftToolBg">إزالة الخلفية</a></li>
+            <li><a href="./?tool=exif" data-i18n="ftToolExif">فحص بيانات الصور</a></li>
+            <li><a href="#faq" data-i18n="ftFaq">الأسئلة الشائعة</a></li>
+            <li><a href="privacy.html" data-i18n="ftPrivacy">سياسة الخصوصية</a></li>
+          </ul>
+        </div>
+        <div class="f-col">
+          <h4 data-i18n="ftProject">المشروع</h4>
+          <ul>
+            <li><a href="https://github.com/spos-systems/SPOS-Remover" target="_blank" rel="noopener" data-i18n="ftRepo">الكود المصدري</a></li>
+            <li><a href="https://github.com/spos-systems/SPOS-Remover/issues" target="_blank" rel="noopener" data-i18n="ftIssues">الإبلاغ عن مشكلة</a></li>
+            <li><a href="https://github.com/spos-systems/SPOS-Remover/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" data-i18n="ftContrib">دليل المساهمة</a></li>
+            <li><a href="https://github.com/spos-systems/SPOS-Remover/blob/main/LICENSE" target="_blank" rel="noopener" data-i18n="ftLicense">الترخيص MIT</a></li>
+          </ul>
+        </div>
+        <div class="f-company">
+          <h4 data-i18n="ftCompany">من تطوير</h4>
+          <a class="company-chip" href="https://spos.ly" target="_blank" rel="noopener">
+            <img src="assets/img/company-logo.png" alt="شعار صولة للأنظمة SPOS" width="40" height="40">
+            <span>
+              <b>صولة للأنظمة SPOS</b>
+              <i data-i18n="ftCompanyTag">حلول برمجية متكاملة</i>
+            </span>
+          </a>
+          <ul class="company-links">
+            <li><a href="https://spos.ly" target="_blank" rel="noopener" data-i18n="ftCompanySite">spos.ly</a></li>
+            <li><a href="https://wa.me/218935535606" target="_blank" rel="noopener" data-i18n="ftWa">واتساب: 0935535606</a></li>
+            <li><a href="tel:+218935535606" data-i18n="ftPhone">هاتف: 0935535606</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="f-bottom">
+        <span data-i18n="ftRights">© 2026 SPOS Remover — مشروع مفتوح المصدر من صولة للأنظمة SPOS</span>
+        <span data-i18n="ftMade">صُنع بفخر في ليبيا</span>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <!-- forced strength dialog: opened when an image arrives with no tier chosen -->
+  <dialog id="tierDialog" aria-labelledby="tdTitle">
+    <div class="td-card">
+      <h3 id="tdTitle" data-i18n="dlgTitle">اختر قوة الإزالة أولاً</h3>
+      <p class="td-sub" data-i18n="dlgSub">صورتك جاهزة — حدد قوة النموذج لتبدأ المعالجة فوراً. لا يوجد اختيار افتراضي: القرار لك.</p>
+      <div class="td-opts">
+        <button type="button" data-tier="fast">
+          <b data-i18n="tierFast">سريع</b>
+          <span data-i18n="tierFastSub">نحو 44 م.ب · مستضاف ضمن الموقع</span>
+        </button>
+        <button type="button" data-tier="balanced" class="recommended">
+          <b><i data-i18n="tierBalanced">متوازن</i><em data-i18n="tierRecBadge">موصى به</em></b>
+          <span data-i18n="tierBalancedSub">نحو 88 م.ب · مستضاف · دقة أعلى بكثير</span>
+        </button>
+        <button type="button" data-tier="hd">
+          <b data-i18n="tierHd">أقصى دقة</b>
+          <span data-i18n="tierHdSub">نحو 176 م.ب · من مزود خارجي · أبطأ</span>
+        </button>
+      </div>
+      <p class="td-note" data-i18n="dlgNote">يُنزَّل النموذج مرة واحدة فقط ويُخزَّن في متصفحك — الاستخدامات التالية فورية. الأحجام المذكورة تقريبية وصادقة، وشريط التنزيل يعرض بايتات حقيقية أثناء التقدم.</p>
+      <button type="button" class="td-cancel" data-i18n="dlgCancel" onclick="document.getElementById('tierDialog').close()">إلغاء</button>
+    </div>
+  </dialog>
+
+  <noscript>
+    <div style="max-width:640px;margin:40px auto;padding:24px;background:#FFFFFF;border:2px solid #D2D8D3;border-radius:10px;text-align:center;font-family:sans-serif;color:#1B2420">
+      <h2>JavaScript مطلوب</h2>
+      <p>SPOS Remover يعمل بالكامل داخل متصفحك، لذا يحتاج تفعيل JavaScript للعمل.</p>
+      <p style="direction:ltr;color:#66716B">SPOS Remover runs entirely in your browser and needs JavaScript enabled.</p>
+    </div>
+  </noscript>
+
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

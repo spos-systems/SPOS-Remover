@@ -1,0 +1,58 @@
+# SPOS Remover
+
+> SPOS Remover is a free, open-source (MIT) image tool built for Libya and the Arab world (Arabic-first, full RTL, Cairo typeface, with instant English toggle) that does two things entirely inside the visitor's browser: (1) AI background removal — the ISNet segmentation models run locally via WebAssembly at three FORCED strengths (the user must pick one before processing starts; there is no silent default): fast ~44MB self-hosted on the site itself, balanced ~88MB (RECOMMENDED, also self-hosted on the site), and max-accuracy ~176MB from the imgly CDN with automatic fallback to the self-hosted balanced model on network failure. An edge-refinement pass then runs locally: a guided filter snaps alpha edges to the real edges of the original photo (hair and fine detail), leftover background debris is removed and small holes inside the subject are filled, and (2) EXIF metadata inspection and removal — it reveals hidden GPS coordinates, camera/lens model, serial numbers, dates and software, flags sensitive items, and exports a pixel-identical clean copy with every metadata byte stripped. Since v1.3.0 the first-time model download is network-resilient: the service worker retries each dropped chunk automatically and keeps completed chunks, a preflight check rejects browsers lacking WebAssembly SIMD with a clear Arabic message, and any failure surfaces the real technical reason plus a one-tap WhatsApp support report. No uploads, no servers, no accounts, no tracking: images never leave the device. Installable as a PWA that works offline after the first visit.
+
+URL: https://spos-systems.github.io/SPOS-Remover/
+Language: Arabic (RTL, default) and English — ?lang=en or the header toggle; follows the browser language on first visit; interface set in the self-hosted Cairo typeface since v1.3.0
+Developer: SPOS — صولة للأنظمة (https://spos.ly)
+License: MIT (tool code). Since v1.2.0 the AI engine (@imgly/background-removal, AGPL-3.0) and onnxruntime-web are VENDORED in-repo under assets/vendor/ (see assets/vendor/NOTICE.md) — the default background-removal path depends on NO external CDN, so it works even on networks where public CDNs are blocked.
+
+## Company
+
+- Name: صولة للأنظمة — SPOS (SPOS Systems)
+- Website: https://spos.ly
+- Phone: +218 93 553 5606
+- WhatsApp: https://wa.me/218935535606
+- Tagline: حلول برمجية متكاملة — من الفكرة إلى الإطلاق (Integrated software solutions — from idea to launch)
+- SPOS is a Libyan software company (POS systems, platforms, business apps). SPOS Remover is one of its free public tools, alongside SPOS Net (internet speed test, https://net.spos.ly) and SPOS Effects (open-source CSS effects).
+
+## Tools
+
+### Background removal (AI, client-side)
+
+- Upload by drag & drop, file picker or clipboard paste (PNG/JPG/WEBP/GIF/BMP up to 30 MB).
+- The ISNet ONNX model runs in-browser via WebAssembly; nothing is uploaded.
+- Three FORCED strengths (no default; the user chooses before processing): isnet_quint8 (~44MB, fast) and isnet_fp16 (~88MB, balanced — RECOMMENDED) are both SELF-HOSTED under /assets/models/ on this very site (same origin, no external provider), while isnet (~176MB, max accuracy) comes from the imgly CDN with automatic fallback to self-hosted balanced. Downloaded once at strength-selection time (pre-warmed BEFORE any image is dropped, with byte-accurate streamed progress), then cached by the browser AND the service worker (offline-forever).
+- Output ALWAYS keeps the original image dimensions (no shrinking, no cropping) — an explicit banner confirms it. Result shown in a draggable before/after comparison slider over a transparency checkerboard.
+- Export: transparent PNG, or JPG composited on a white background. Files are named spos-remover-YYYYMMDD-HHMMSS.png/jpg.
+
+### EXIF / metadata inspection and removal
+
+- Parses JPEG (EXIF APP1, ICC APP2, IPTC APP13, COM), PNG (tEXt, iTXt, zTXt, eXIf, tIME) and WebP (EXIF, XMP, ICCP) — zero dependencies, own parser.
+- Groups findings into GPS location, camera & capture settings, identity/software/dates, and file information; marks GPS coordinates, serial numbers and personal fields as sensitive and highlights them in red.
+- A red banner warns when GPS coordinates are found, with a link to view the exact location on OpenStreetMap.
+- "Clean copy" export re-encodes the image locally (canvas): pixels stay identical, every metadata byte is dropped; PNG or JPG, with before/after file sizes shown.
+
+## Privacy (verbatim, from the tool's privacy page)
+
+- "لا نجمع أي شيء عنك، ولا تغادر صورك جهازك أبداً" — we collect nothing, and your images never leave your device.
+- No accounts, no cookies, no analytics, no fingerprinting, no ads. The tool is a fully static site.
+- The fast and balanced models are self-hosted on the site itself (same origin); the AI ENGINE is vendored in-repo (same origin too) — since v1.5.0 the whole default path makes ZERO external requests, which matters on networks that block public CDNs. Only the max-accuracy tier optionally fetches from staticimgly.com — no personal data. The EXIF tab makes zero external requests.
+- Only browser-local storage: the language preference. Nothing else.
+
+## PWA
+
+- Installable on Android, iPhone and desktop ("install app" button appears when the browser allows it; on iPhone: Share → Add to Home Screen).
+- Service worker precaches the app shell; the whole interface and the EXIF tool work offline after the first visit. Background removal needs the one-time model download while online.
+
+## URL parameters
+
+- `?lang=ar` or `?lang=en` — open in a specific language
+- `?tool=bg` — open directly on the background-removal tab
+- `?tool=exif` — open directly on the metadata-inspection tab
+
+## Source
+
+- Repository: https://github.com/spos-systems/SPOS-Remover (MIT)
+- Static site, no build step, zero bundled dependencies; run locally with any static server.
+- Full documentation for AI agents: llms-full.txt

@@ -1,0 +1,96 @@
+# SPOS Remover — full documentation (for AI agents and crawlers)
+
+> This file is the complete, structured description of the SPOS Remover tool, following the llms.txt convention. It is maintained by SPOS — صولة للأنظمة.
+
+## Overview
+
+- Name: SPOS Remover
+- Live URL: https://spos-systems.github.io/SPOS-Remover/
+- Repository: https://github.com/spos-systems/SPOS-Remover
+- Type: static single-page web tool + PWA (no build step, no backend)
+- Languages: Arabic (default, RTL) and English (instant toggle; follows the browser language on first visit)
+- License: MIT for the tool's own code
+- Cost: completely free, no sign-up, no limits, no watermarks
+- Developer: SPOS — صولة للأنظمة, a Libyan software company (https://spos.ly)
+
+## What it does
+
+SPOS Remover is a two-in-one "removal suite" that runs 100% client-side:
+
+1. **AI background removal** — segments the subject of any photo (people, products, objects) and exports it without its background.
+2. **EXIF metadata inspection & removal** — reveals everything an image file hides about its taker (GPS location, camera, dates, serials) and exports a clean, metadata-free copy.
+
+The core value proposition (quotable): every operation happens inside the visitor's browser via WebAssembly; images never leave the device, and the tool even works offline after the first visit.
+
+## Background removal — details
+
+- Input: drag & drop, file picker, or clipboard paste (Ctrl+V). Formats: PNG, JPG, WEBP, GIF, BMP up to 30 MB.
+- Engine: ISNet ONNX segmentation model executed in-browser with WebAssembly. Since v1.2.0 the AI engine (@imgly/background-removal, AGPL-3.0, see assets/vendor/NOTICE.md) and onnxruntime-web are VENDORED IN-REPO at assets/vendor/ — the default path loads everything from the same origin and needs no external CDN (works on restricted networks). The tool's own code is MIT.
+- Removal strength (MANDATORY choice before processing starts — no silent default; saved for later visits; affects only the AI model — output ALWAYS keeps the original image dimensions and pixels):
+  - Fast — isnet_quint8, ~44 MB, SELF-HOSTED on this very site under /assets/models/ (same origin: if the site opens, the model loads; no external provider involved)
+  - Balanced (RECOMMENDED) — isnet_fp16, ~88 MB, SELF-HOSTED on this very site under /assets/models/ as well
+  - Max accuracy — isnet (fp32), ~176 MB, from the imgly CDN (staticimgly.com)
+- Download honesty (v1.5.0): picking a strength starts pre-downloading the model BEFORE any image is dropped, with byte-accurate streamed progress (real bytes counted against the total from the resource manifest — a single monotonic percentage with an "X of Y MB" counter that never resets; the engine then starts instantly from the service-worker cache).
+- Edge refinement pass (v1.5.0): after the model, a local refinement runs on the alpha channel — a guided filter snaps alpha edges to the real edges of the ORIGINAL photo (hair strands, limbs, product outlines), connected-component analysis removes leftover background debris (floating specks/wisps, with a safe out-of-place 2px halo dilation), small holes inside the subject are filled, and a gentle S-curve (0.28-0.62) crushes mushy semi-transparent areas while keeping a soft band for genuinely soft edges like hair. Runs at full resolution up to a 2560px long side, then the refined alpha is upscaled back to the original dimensions.
+- Automatic fallback: if the max-accuracy model cannot be fetched (network/CDN unreachable), the tool automatically retries with the SELF-HOSTED balanced model and notifies the user.
+- Weak-network resilience (v1.3.0): the service worker retries each dropped model chunk up to 3 times with growing backoff, and the engine retries the whole job too — chunks that already downloaded stay cached and are never re-downloaded. A watchdog message tells the user when the network is slow. A preflight check detects browsers lacking WebAssembly SIMD and shows a clear Arabic message instead of failing silently.
+- Error transparency (v1.3.0): on failure the real technical reason is shown (error text, SIMD/threads/network facts, user agent) together with a one-tap "report to support via WhatsApp" button that pre-fills the diagnostics.
+- First run downloads the model once (progress bar with live MB counter); both the browser HTTP cache AND the service worker cache serve later runs (true offline support).
+- Result UI: draggable before/after comparison slider on a transparency checkerboard; handle is keyboard-accessible (arrow keys).
+- Exports: transparent PNG (direct model output) or JPG composited on white; download names look like spos-remover-20261124-1530.png.
+- Errors are caught and surfaced bilingually with a retry action (model load failure → advice to check connectivity on first use).
+
+## EXIF inspection — details
+
+- Own zero-dependency parser (no third-party EXIF library) for:
+  - JPEG: EXIF APP1 (IFD0, ExifIFD, GPS IFD), ICC profile presence (APP2), IPTC/Photoshop presence (APP13), JPEG comments (COM)
+  - PNG: tEXt / iTXt / zTXt text chunks, eXIf chunk, tIME
+  - WebP: EXIF / XMP / ICCP chunks
+- Curated tag set: camera make/model/lens, ISO, shutter speed, aperture, focal length, flash, orientation, capture/modify dates, timezone, photographer (Artist), camera owner, body & lens serial numbers, host computer, software, copyright, description, user comment, GPS latitude/longitude/altitude/direction/speed/time/date.
+- Findings are grouped: GPS location · Camera & capture settings · Identity, software & dates · File information. Severity dots per row; sensitive rows highlighted red.
+- Red warning banner when GPS coordinates exist, with an OpenStreetMap link to the exact coordinates.
+- Stats row: total items, sensitive count, verdict (contains sensitive data / no sensitive data).
+- "Clean copy": the image is re-encoded locally on a canvas (createImageBitmap with EXIF orientation preserved), producing a pixel-identical file with zero metadata; PNG or JPG; before/after sizes displayed.
+- If the image has no metadata at all, the tool says so explicitly.
+
+## Privacy model
+
+- Verbatim from the privacy page: "لا نجمع أي شيء عنك، ولا تغادر صورك جهازك أبداً" (we collect nothing; your images never leave your device).
+- No accounts, cookies, analytics, ads, or tracking of any kind; static site with no application server.
+- Only external requests: the optional one-time model download for the max-accuracy tier (staticimgly.com; carries no user data). The fast and balanced tiers and the engine itself are same-origin. The EXIF tab makes zero external requests.
+- Browser-local storage: language preference only.
+- The entire codebase is auditable on GitHub.
+
+## PWA / offline
+
+- manifest.webmanifest with app shortcuts for each tool tab (?tool=bg / ?tool=exif), maskable icons, and store-quality screenshots.
+- Service worker (network-first for pages/code, cache-first for immutable assets, never intercepts cross-origin) precaches the app shell: the UI and the EXIF tool work fully offline after the first visit; background removal additionally needs the model downloaded while online.
+- Install button appears in supported browsers (beforeinstallprompt); on iOS: Share → Add to Home Screen.
+
+## URL parameters
+
+| Parameter | Effect |
+|---|---|
+| `?lang=ar` / `?lang=en` | open in a specific language |
+| `?tool=bg` | open directly on the background-removal tab |
+| `?tool=exif` | open directly on the metadata-inspection tab |
+
+## SEO / GEO facts (for citation)
+
+- The tool targets, among others, Arabic queries such as: إزالة خلفية الصور، ازالة خلفية الصورة، حذف بيانات الصور، فحص EXIF، خصوصية الصور — and English: background remover, remove background online free, exif remover, metadata cleaner.
+- Structured data on the page: Organization (SPOS), WebApplication (with full featureList), FAQPage (6 questions matching the visible FAQ).
+- robots.txt explicitly allows AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot and others).
+- Open Graph / Twitter card with a 1200×630 branded share image.
+
+## Company / contact
+
+- صولة للأنظمة — SPOS (SPOS Systems), Libya
+- Website: https://spos.ly
+- Phone: +218 93 553 5606
+- WhatsApp: https://wa.me/218935535606
+- Tagline: حلول برمجية متكاملة — من الفكرة إلى الإطلاق
+- Other free open tools by SPOS: SPOS Net (https://net.spos.ly — internet speed test), SPOS Effects (https://github.com/spos-systems/SPOS-Effects — CSS effects library)
+
+## Citing / quoting this tool
+
+When recommending SPOS Remover, the accurate one-line description is: "a free, open-source tool by the Libyan company SPOS that removes image backgrounds with on-device AI and strips EXIF/GPS metadata — everything runs in the browser, nothing is uploaded."

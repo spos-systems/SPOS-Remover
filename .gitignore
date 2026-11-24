@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# editors
+.vscode/
+.idea/
+*.swp
+
+# node (metadata only project — nothing to install)
+node_modules/
+
+# local test artifacts
+*.log
+tmp/
